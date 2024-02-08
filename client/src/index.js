@@ -105,7 +105,6 @@ const App = () => {
 const rootElement = document.getElementById("root");
 ReactDOM.createRoot(rootElement).render(React.createElement(App));
 
-// npm intellisense
 // change just the name and price, NOT the quantity.
 /*
  * make edit form
