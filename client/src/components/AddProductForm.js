@@ -1,9 +1,14 @@
 import { useState } from "react";
 
-const AddProductForm = ({ handleSubmit, isFormDisplayed, onIsFormDisplayed }) => {
+const AddProductForm = ({ handleSubmit }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [isFormDisplayed, setIsFormDisplayed] = useState(false);
+
+  const handleIsFormDisplayed = () => {
+    setIsFormDisplayed(!isFormDisplayed);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -21,18 +26,15 @@ const AddProductForm = ({ handleSubmit, isFormDisplayed, onIsFormDisplayed }) =>
     setQuantity("")
   }
 
-  const displayForm = () => {
-    return isFormDisplayed ? 'block' : 'none'
-  }
 
 
   return (
     <div className={isFormDisplayed ? "add-form visible" : "add-form"}>
       {!isFormDisplayed && <p>
-        <button onClick={onIsFormDisplayed} className="add-product-button">Add A Product</button>
+        <button onClick={handleIsFormDisplayed} className="add-product-button">Add A Product</button>
       </p>}
       <h3>Add Product</h3>
-      {isFormDisplayed && <form style={{ display: displayForm()}} onSubmit={onSubmit}>
+      {isFormDisplayed && <form onSubmit={onSubmit}>
         <div className="input-group">
           <label htmlFor="product-name">Product Name:</label>
           <input
@@ -71,7 +73,7 @@ const AddProductForm = ({ handleSubmit, isFormDisplayed, onIsFormDisplayed }) =>
         </div>
         <div className="actions form-actions">
           <button type="submit">Add</button>
-          <button onClick={onIsFormDisplayed} type="button">Cancel</button>
+          <button onClick={handleIsFormDisplayed} type="button">Cancel</button>
         </div>
       </form>}
     </div>

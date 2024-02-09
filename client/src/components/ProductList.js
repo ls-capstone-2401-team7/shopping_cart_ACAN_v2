@@ -6,7 +6,7 @@ const ProductList = ({ products, onHandleAddToCart, onClickUpdate, onClickDelete
       <h2>Products</h2>
       <ul className="product-list">
         {products.map((product) => {
-          return <Product key={product.id} {...product} onHandleAddToCart={onHandleAddToCart} onClickUpdate={onClickUpdate} onClickDelete={onClickDelete}/>;
+          return <Product key={product._id} {...product} onHandleAddToCart={onHandleAddToCart} onClickUpdate={onClickUpdate} onClickDelete={onClickDelete}/>;
         })}
       </ul>
     </div>

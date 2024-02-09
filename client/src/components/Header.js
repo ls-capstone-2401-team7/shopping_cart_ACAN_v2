@@ -34,7 +34,7 @@ const Header = ({ cartState }) => {
           <tbody>
             {cartState.map(product => {
               return (
-                <tr key={product.id}>
+                <tr key={product._id}>
                   <td>{product.title}</td>
                   <td>{product.quantity}</td>
                   <td>{product.price}</td>

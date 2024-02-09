@@ -6,15 +6,15 @@ const Product = ({
   quantity,
   price,
   onHandleAddToCart,
-  id,
+  _id,
   onClickUpdate,
   onClickDelete
 }) => {
   const handleAddToCart = () => {
-    onHandleAddToCart(id);
+    onHandleAddToCart(_id);
   };
 
-  const [editIsTrue, setEditTrue] = useState(false);
+  const [isEditFormVisible, setisEditFormVisible] = useState(false);
 
   return (
     <li className="product">
@@ -32,25 +32,25 @@ const Product = ({
               Add to Cart
             </button>
           )}
-          <button className="edit" onClick={() => setEditTrue(!editIsTrue)}>
+          <button className="edit" onClick={() => setisEditFormVisible(!isEditFormVisible)}>
             Edit
           </button>
         </div>
         <button 
           className="delete-button"
-          onClick={() => onClickDelete(id)}
+          onClick={() => onClickDelete(_id)}
         >
           <span>X</span>
         </button>
       </div>
-      {editIsTrue && (
+      {isEditFormVisible && (
         <EditProduct
           title={title}
           quantity={quantity}
           price={price}
-          id={id}
+          _id={_id}
           onClickUpdate={onClickUpdate}
-          setEditTrue={setEditTrue}
+          setisEditFormVisible={setisEditFormVisible}
         />
       )}
     </li>

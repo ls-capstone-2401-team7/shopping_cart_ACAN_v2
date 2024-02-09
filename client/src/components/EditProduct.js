@@ -4,16 +4,16 @@ const EditProduct = ({
   title,
   price,
   quantity,
-  id,
+  _id,
   onClickUpdate,
-  setEditTrue,
+  setisEditFormVisible,
 }) => {
   const [newTitle, setNewTitle] = useState(title);
   const [newPrice, setNewPrice] = useState(price);
   const [newQuantity, setnewQuantity] = useState(quantity);
 
   const changeEditState = () => {
-    setEditTrue((oldEditState) => !oldEditState);
+    setisEditFormVisible((oldEditState) => !oldEditState);
   };
 
   return (
@@ -64,7 +64,7 @@ const EditProduct = ({
                   title: newTitle,
                   price: newPrice,
                   quantity: newQuantity,
-                  id,
+                  _id,
                 },
                 changeEditState,
               );
@@ -74,7 +74,7 @@ const EditProduct = ({
           </button>
           <button
             type="button"
-            onClick={() => setEditTrue((editIsTrue) => !editIsTrue)}
+            onClick={() => setisEditFormVisible((editIsTrue) => !editIsTrue)}
           >
             Cancel
           </button>
