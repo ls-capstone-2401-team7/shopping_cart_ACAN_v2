@@ -1,4 +1,3 @@
-import data from "../mockData/data";
 import Header from "./Header";
 import ProductList from "./ProductList";
 import AddProductForm from "./AddProductForm";
@@ -14,6 +13,7 @@ const App = () => {
     const getAllProducts =  async () => {
       try {
         const data = await cartServices.getAllProducts()
+        console.log(data)
         setProducts(data)
 
       } catch (error) {
@@ -22,6 +22,21 @@ const App = () => {
       }
     }
     getAllProducts()
+  }, [])
+
+
+  useEffect(() => {
+    const getCart = async () => {
+      try {
+        const data = await cartServices.getCart()
+        console.log(data)
+        setCartState(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    getCart()
   }, [])
 
   const handleSubmit = async (newObj, callback) => {
@@ -40,16 +55,16 @@ const App = () => {
 
   const handleAddToCart = async (productId) => {
     const { product: updatedProduct,  item: productInCart } = await cartServices.addToCart(productId)
-
+    console.log(updatedProduct, productInCart)
     setProducts((oldProducts) => {
       return oldProducts.map((product) => {
         if (product._id === productId) {
           const itemInCart = cartState.find((product) => product.productId === productId);
-          
+          console.log(itemInCart)
           if (itemInCart) {
             setCartState((prevCart) => {
               return prevCart.map((product) => {
-                if (product._id === itemInCart._id) {
+                if (product.productId === itemInCart.productId) {
                   return productInCart;
                 }
                 return product;
@@ -68,9 +83,10 @@ const App = () => {
   };
 
   const handleClickUpdate = async ({ title, price, quantity, _id }, callback) => {
+    let updatedProduct
     try {
       quantity = Math.max(quantity, 0).toFixed(2)
-      const updatedProduct = await cartServices.updateProduct({title, price, quantity}, _id)
+      updatedProduct = await cartServices.updateProduct({title, price, quantity}, _id)
       setProducts((oldProducts) => {
         return oldProducts.map((product) => {
           if (product._id === _id) {
@@ -88,15 +104,17 @@ const App = () => {
       console.error(error)
     }
 
-    // FIX LATER
-    setCartState((products) => {
-      return products.map((product) => {
-        if (product.id === id) {
-          return { ...product, title, price:(+price).toFixed(2) };
-        }
-        return product;
-      });
-    });
+    // console.log(updatedProduct)
+    // // FIX LATER
+    // setCartState((products) => {
+    //   return products.map((product) => {
+    //     if (product.productId === _id) {
+    //       console.log('found')
+    //       return updatedProduct;
+    //     }
+    //     return product;
+    //   });
+    // });
 
 
   };
@@ -111,9 +129,18 @@ const App = () => {
     }
   }
 
+  const handleCheckout = async () => {
+    try {
+      await cartServices.checkoutCart()
+      setCartState([])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div id="app">
-      <Header cartState={cartState} />
+      <Header cartState={cartState} onCheckout={handleCheckout} />
       <main>
         <ProductList
           products={products}

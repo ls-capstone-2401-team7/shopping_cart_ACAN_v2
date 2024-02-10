@@ -3,8 +3,6 @@ import axios from 'axios'
 
 const getAllProducts =  async () => {
   const { data }  = await axios.get('/api/products')
-  console.log(data)
-
   return data
 }
 
@@ -27,11 +25,22 @@ const addToCart = async (productId) => {
   return data
 }
 
+const getCart = async () => {
+  const { data } = await axios.get(`/api/cart`)
+  return data
+}
+
+const checkoutCart = async () => {
+  await axios.post('/api/checkout')
+}
+
 
 export default {
   getAllProducts,
   addProduct,
   updateProduct,
   deleteProduct,
-  addToCart
+  addToCart,
+  getCart,
+  checkoutCart
 }

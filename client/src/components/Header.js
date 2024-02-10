@@ -1,6 +1,9 @@
-const Header = ({ cartState }) => {
-  // console.log(cartState);
+const Header = ({ cartState, onCheckout }) => {
   const total = cartState.reduce((result, product) => result + (product.quantity * product.price), 0).toFixed(2);
+
+  const handleCheckout = async () => {
+    await onCheckout()
+  }
 
   if (cartState.length === 0) {
     return (
@@ -51,7 +54,7 @@ const Header = ({ cartState }) => {
           </tfoot>
         </table>
         <div className="checkout-button">
-          <button className="checkout">Checkout</button>
+          <button onClick={handleCheckout} className="checkout">Checkout</button>
         </div>
       </div>
     </header>
