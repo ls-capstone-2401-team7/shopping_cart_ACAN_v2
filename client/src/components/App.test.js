@@ -81,7 +81,7 @@ test("Deleting a product removes product", async () => {
   const deleteButton = await screen.findByRole("button", { name: /X/ });
   await user.click(deleteButton);
 
-  const productItem = await screen.findByRole("listitem");
+  const productItem = screen.queryByRole("listitem");
   expect(productItem).not.toBeInTheDocument();
 });
 

@@ -124,7 +124,7 @@ const App = () => {
     try {
       await cartServices.deleteProduct(id);
       // const data = await cartServices.getAllProducts()
-      setProducts(data => data.filter((product) => id !== product.id));
+      setProducts(data => data.filter((product) => id !== product._id));
     } catch (error) {
       console.error(error);
     }
